@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct DefaultPhotoButtonView: View {
-    var body: some View {
+public struct DefaultPhotoButtonView: View {
+    public var body: some View {
         Image(systemName: "circle")
             .font(.system(size: 72))
             .foregroundColor(.pink)

@@ -14,9 +14,10 @@ struct CardScannerViewRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIViewController
     
     @Binding var camerService: CardFrameHandler
+    let scanDelay: Double
     
     func makeUIViewController(context: Context) -> UIViewController {
-        camerService.startCamera()
+        camerService.startCamera(scanDelay: scanDelay)
         
         let viewController = UIViewController()
         viewController.view.backgroundColor = .black

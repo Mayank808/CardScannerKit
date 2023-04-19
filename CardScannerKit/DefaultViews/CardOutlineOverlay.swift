@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct CardOutlineOverlay: View {
+public struct CardOutlineOverlay: View {
     @State private var orientation = UIDeviceOrientation.unknown
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { dimension in
             ZStack {
                 Rectangle().foregroundColor(.black.opacity(0.05))

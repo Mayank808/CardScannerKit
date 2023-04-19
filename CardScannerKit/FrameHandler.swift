@@ -21,14 +21,14 @@ class CardFrameHandler: NSObject, ObservableObject {
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "sessionQueue")
 
-    func startCamera() {
+    func startCamera(scanDelay: Double) {
         checkPermissions()
         sessionQueue.async { [unowned self] in
             self.setupCaptureSession()
             self.captureSession.startRunning()
         }
         
-        sessionQueue.asyncAfter(deadline: .now() + 3) {
+        sessionQueue.asyncAfter(deadline: .now() + scanDelay) {
             self.startScan = true
         }
     }
@@ -145,5 +145,27 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureImage() {
         startScan = false
         takeScreenShot = true
+    }
+}
+
+
+public class ImagePermissionHandler {
+    public static let shared = ImagePermissionHandler()
+    
+    private init() { }
+    
+    public func checkPermissions(_ completion: @escaping (Bool) -> ()) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            return completion(true)
+        case .notDetermined:
+            requestPermissions(completion)
+        default:
+            completion(false)
+        }
+    }
+
+    func requestPermissions(_ completion: @escaping (Bool) -> ()) {
+        AVCaptureDevice.requestAccess(for: .video) { granted in completion(granted)}
     }
 }
