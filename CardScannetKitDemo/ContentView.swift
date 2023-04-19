@@ -11,7 +11,7 @@ import CardScannerKit
 struct ContentView: View {
     @State private var capturedImage: UIImage? = nil
     @State private var showSheet: Bool = false
-    @State private var showUnhappyFlow: Bool = true
+    @State private var showUnhappyFlow: Bool = false
     
     var body: some View {
         VStack {
