@@ -103,10 +103,10 @@ extension CardScannerView where CardOverlay == CardOutlineOverlay, ButtonContent
         )
     }
 }
-
-struct CardScannerView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardScannerView(capturedImage: .constant(nil))
-            .ignoresSafeArea()
-    }
-}
+//
+//struct CardScannerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CardScannerView(capturedImage: .constant(nil))
+//            .ignoresSafeArea()
+//    }
+//}

@@ -6,9 +6,30 @@
 //
 
 import AVFoundation
-import CoreImage
 import Vision
 import SwiftUI
+
+
+public class ImagePermissionHandler {
+    public static let shared = ImagePermissionHandler()
+    
+    private init() { }
+    
+    public func checkPermissions(_ completion: @escaping (Bool) -> ()) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            return completion(true)
+        case .notDetermined:
+            requestPermissions(completion)
+        default:
+            completion(false)
+        }
+    }
+
+    func requestPermissions(_ completion: @escaping (Bool) -> ()) {
+        AVCaptureDevice.requestAccess(for: .video) { granted in completion(granted)}
+    }
+}
 
 class CardFrameHandler: NSObject, ObservableObject {
     @Published var cardImage: UIImage?
@@ -145,27 +166,5 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureImage() {
         startScan = false
         takeScreenShot = true
-    }
-}
-
-
-public class ImagePermissionHandler {
-    public static let shared = ImagePermissionHandler()
-    
-    private init() { }
-    
-    public func checkPermissions(_ completion: @escaping (Bool) -> ()) {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            return completion(true)
-        case .notDetermined:
-            requestPermissions(completion)
-        default:
-            completion(false)
-        }
-    }
-
-    func requestPermissions(_ completion: @escaping (Bool) -> ()) {
-        AVCaptureDevice.requestAccess(for: .video) { granted in completion(granted)}
     }
 }
