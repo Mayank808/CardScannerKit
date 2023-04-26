@@ -14,8 +14,8 @@
             filePath = "CardScannerKit/FrameHandler.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "doPerspectiveCorrection(_:detectedDocument:)"
             landmarkType = "7">
          </BreakpointContent>

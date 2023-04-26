@@ -124,6 +124,22 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         var ciImage = CIImage(cvImageBuffer: imageBuffer)
+        
+        if takeScreenShot {
+            self.startScan = false
+            self.takeScreenShot = false
+            self.captureSession.stopRunning()
+            try? requestHandler.perform([textDetectionRequest, documentRequest], on: ciImage)
+
+            if autoCropImage && validCompletedVisionRequest(textDetectionRequest, documentRequest) {
+                ciImage = doPerspectiveCorrection(ciImage, detectedDocument: documentRequest.results?.first)
+            }
+            DispatchQueue.main.async {
+                self.cardImage = self.convert(cmage: ciImage)
+            }
+            return
+        }
+        
                 
         if startScan {
             try? requestHandler.perform([textDetectionRequest, documentRequest], on: ciImage)
@@ -135,14 +151,6 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
                 if autoCropImage {
                     ciImage = doPerspectiveCorrection(ciImage, detectedDocument: documentRequest.results?.first)
                 }
-                DispatchQueue.main.async {
-                    self.cardImage = self.convert(cmage: ciImage)
-                }
-                return
-            } else if takeScreenShot {
-                self.startScan = false
-                self.takeScreenShot = false
-                self.captureSession.stopRunning()
                 DispatchQueue.main.async {
                     self.cardImage = self.convert(cmage: ciImage)
                 }
@@ -165,8 +173,13 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         // Create a rect from the pixel coordinates
         let rect = CGRect(x: x, y: y, width: width + 50, height: height + 50)
         
+//        ciImage = ciImage.applyingFilter("CIPerspectiveCorrection", parameters: [
+//            "inputTopLeft": CIVector(cgPoint: topLeft),
+//            "inputTopRight": CIVector(cgPoint: topRight),
+//            "inputBottomLeft": CIVector(cgPoint: bottomLeft),
+//            "inputBottomRight": CIVector(cgPoint: bottomRight),
+//        ])
         
-
         // Crop the original image to the rect
         let croppedImage = ciImage.cropped(to: rect)
         return croppedImage
