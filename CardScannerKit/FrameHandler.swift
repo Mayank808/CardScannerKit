@@ -34,6 +34,7 @@ public class ImagePermissionHandler {
 class CardFrameHandler: NSObject, ObservableObject {
     @Published var cardImage: UIImage?
     let previewLayer = AVCaptureVideoPreviewLayer()
+    let autoCropImage: Bool
     
     private let context = CIContext()
     private var startScan: Bool = false
@@ -41,6 +42,14 @@ class CardFrameHandler: NSObject, ObservableObject {
     private var takeScreenShot: Bool = false
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "sessionQueue")
+    
+    private let requestHandler = VNSequenceRequestHandler()
+    private let textDetectionRequest = VNDetectTextRectanglesRequest()
+    private let documentRequest = VNDetectDocumentSegmentationRequest()
+    
+    init(autoCropImage: Bool) {
+        self.autoCropImage = autoCropImage
+    }
 
     func startCamera(scanDelay: Double) {
         checkPermissions()
@@ -89,9 +98,16 @@ class CardFrameHandler: NSObject, ObservableObject {
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sampleBufferQueue"))
         captureSession.addOutput(videoOutput)
         videoOutput.connection(with: .video)?.videoOrientation = .portrait
+//        videoOutput.connection(with: .video)?.videoOrientation = .landscapeRight
+//        videoOutput.connection(with: .video)?.videoOrientation = .landscapeLeft
         
+        captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080 // resolution
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.session = captureSession
+        
+        textDetectionRequest.reportCharacterBoxes = false
+        textDetectionRequest.usesCPUOnly = false
+        documentRequest.usesCPUOnly = false
     }
     
 }
@@ -101,33 +117,59 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         imageFromSampleBuffer(sampleBuffer: sampleBuffer)
     }
     
-    func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-        
-        if takeScreenShot {
-            self.startScan = false
-            self.takeScreenShot = false
-            self.captureSession.stopRunning()
-            self.cardImage = convert(cmage: ciImage)
+    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            debugPrint("Error: Unable to get image from sample buffer")
             return
         }
         
+        var ciImage = CIImage(cvImageBuffer: imageBuffer)
+                
         if startScan {
-            let requestHandler = VNSequenceRequestHandler()
-            let textDetectionRequest = VNDetectTextRectanglesRequest()
-            let documentRequest = VNDetectDocumentSegmentationRequest()
-            
-            textDetectionRequest.usesCPUOnly = false
-            documentRequest.usesCPUOnly = false
             try? requestHandler.perform([textDetectionRequest, documentRequest], on: ciImage)
             
-            if completedVisionRequest(textDetectionRequest, documentRequest) {
+            if validCompletedVisionRequest(textDetectionRequest, documentRequest) {
                 self.startScan.toggle()
                 self.captureSession.stopRunning()
-                self.cardImage = convert(cmage: ciImage)
+                
+                if autoCropImage {
+                    ciImage = doPerspectiveCorrection(ciImage, detectedDocument: documentRequest.results?.first)
+                }
+                DispatchQueue.main.async {
+                    self.cardImage = self.convert(cmage: ciImage)
+                }
+                return
+            } else if takeScreenShot {
+                self.startScan = false
+                self.takeScreenShot = false
+                self.captureSession.stopRunning()
+                DispatchQueue.main.async {
+                    self.cardImage = self.convert(cmage: ciImage)
+                }
+                return
             }
         }
+    }
+    
+    private func doPerspectiveCorrection(_ ciImage: CIImage, detectedDocument: VNRectangleObservation?) -> CIImage {
+        guard let observedDocument = detectedDocument else { return ciImage }
+                        
+        // Get the size of the original image
+        let imageSize = ciImage.extent.size
+        // Convert the bounding box from normalized coordinates to pixel coordinates
+        let x = observedDocument.boundingBox.origin.x * imageSize.width
+        let y = observedDocument.boundingBox.origin.y * imageSize.height
+        let width = observedDocument.boundingBox.width * imageSize.width
+        let height = observedDocument.boundingBox.height * imageSize.height
+
+        // Create a rect from the pixel coordinates
+        let rect = CGRect(x: x, y: y, width: width + 50, height: height + 50)
+        
+        
+
+        // Crop the original image to the rect
+        let croppedImage = ciImage.cropped(to: rect)
+        return croppedImage
     }
     
     func convert(cmage: CIImage) -> UIImage {
@@ -137,7 +179,7 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         return image
     }
         
-    func completedVisionRequest(_ textDetectionRequest: VNRequest?,_ documentRequest: VNRequest?) -> Bool {
+    func validCompletedVisionRequest(_ textDetectionRequest: VNRequest?,_ documentRequest: VNRequest?) -> Bool {
         // Only proceed if a rectangular image was detected.
         guard let textRectangles = textDetectionRequest?.results as? [VNObservation] else {
             return false
@@ -155,8 +197,7 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             return false
         }
         
-        if let confidence = documentRectangles.last?.confidence {
-            print(confidence)
+        if let confidence = documentRectangles.first?.confidence {
             return confidence > 0.95
         } else {
             return false

@@ -16,7 +16,7 @@ import SwiftUI
 }
 
 public struct CardScannerView<CardOverlay: View, ButtonContent: View>: View {
-    @State private var frameHandler: CardFrameHandler = CardFrameHandler()
+    @State private var frameHandler: CardFrameHandler
     @Binding var capturedImage: UIImage?
     @ViewBuilder let cardOverlay: CardOverlay
     @ViewBuilder let photoButton: ButtonContent
@@ -25,6 +25,7 @@ public struct CardScannerView<CardOverlay: View, ButtonContent: View>: View {
     public init(
         capturedImage: Binding<UIImage?>,
         scanDelay: Double = 3.0,
+        autoCropImage: Bool = true,
         @ViewBuilder cardOverlay: () -> CardOverlay = { defaultCardOverlay as! CardOverlay },
         @ViewBuilder imageButton: () -> ButtonContent = { defaultPhotoButton as! ButtonContent }
     ) {
@@ -32,6 +33,7 @@ public struct CardScannerView<CardOverlay: View, ButtonContent: View>: View {
         self.cardOverlay = cardOverlay()
         self.photoButton = imageButton()
         self.scanDelay = scanDelay
+        self._frameHandler = State(wrappedValue: CardFrameHandler(autoCropImage: autoCropImage))
     }
     
     @Environment(\.dismiss) var dismiss
@@ -43,11 +45,11 @@ public struct CardScannerView<CardOverlay: View, ButtonContent: View>: View {
             }
             .zIndex(0)
             .frame(maxWidth: .infinity)
-            
             cardOverlay
                 .zIndex(1)
             
             VStack {
+            
                 Spacer()
                 Button(action: {
                     frameHandler.captureImage()
@@ -70,10 +72,11 @@ public struct CardScannerView<CardOverlay: View, ButtonContent: View>: View {
 
 extension CardScannerView where ButtonContent == DefaultPhotoButtonView {
     
-    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0, @ViewBuilder cardOverlay: () -> CardOverlay) {
+    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0, autoCropImage: Bool = true, @ViewBuilder cardOverlay: () -> CardOverlay) {
         self.init(
             capturedImage: capturedImage,
             scanDelay: scanDelay,
+            autoCropImage: autoCropImage,
             cardOverlay: cardOverlay,
             imageButton: { defaultPhotoButton as! ButtonContent }
         )
@@ -82,10 +85,11 @@ extension CardScannerView where ButtonContent == DefaultPhotoButtonView {
 
 extension CardScannerView where CardOverlay == CardOutlineOverlay {
     
-    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0, @ViewBuilder imageButton: () -> ButtonContent) {
+    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0, autoCropImage: Bool = true, @ViewBuilder imageButton: () -> ButtonContent) {
         self.init(
             capturedImage: capturedImage,
             scanDelay: scanDelay,
+            autoCropImage: autoCropImage,
             cardOverlay: { defaultCardOverlay as! CardOverlay },
             imageButton: imageButton
         )
@@ -94,10 +98,11 @@ extension CardScannerView where CardOverlay == CardOutlineOverlay {
 
 extension CardScannerView where CardOverlay == CardOutlineOverlay, ButtonContent == DefaultPhotoButtonView {
     
-    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0) {
+    public init(capturedImage: Binding<UIImage?>, scanDelay: Double = 3.0, autoCropImage: Bool = true) {
         self.init(
             capturedImage: capturedImage,
             scanDelay: scanDelay,
+            autoCropImage: autoCropImage,
             cardOverlay: { defaultCardOverlay as! CardOverlay },
             imageButton: { defaultPhotoButton as! ButtonContent }
         )

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A800B91F29F0384E0080F871 /* CardScannerKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = A800B91E29F0384E0080F871 /* CardScannerKit.docc */; };
-		A800B92529F0384E0080F871 /* CardScannerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A800B91A29F0384E0080F871 /* CardScannerKit.framework */; };
-		A800B92A29F0384E0080F871 /* CardScannerKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A800B92929F0384E0080F871 /* CardScannerKitTests.swift */; };
 		A800B92B29F0384E0080F871 /* CardScannerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A800B91D29F0384E0080F871 /* CardScannerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A800B93529F038830080F871 /* CardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A800B93429F038830080F871 /* CardScannerView.swift */; };
 		A800B93729F039C80080F871 /* CardOutlineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A800B93629F039C80080F871 /* CardOutlineOverlay.swift */; };
@@ -26,13 +24,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A800B92629F0384E0080F871 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A800B91129F0384E0080F871 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A800B91929F0384E0080F871;
-			remoteInfo = CardScannerKit;
-		};
 		A800B9CE29F065180080F871 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A800B91129F0384E0080F871 /* Project object */;
@@ -60,8 +51,6 @@
 		A800B91A29F0384E0080F871 /* CardScannerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardScannerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A800B91D29F0384E0080F871 /* CardScannerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardScannerKit.h; sourceTree = "<group>"; };
 		A800B91E29F0384E0080F871 /* CardScannerKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = CardScannerKit.docc; sourceTree = "<group>"; };
-		A800B92429F0384E0080F871 /* CardScannerKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardScannerKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A800B92929F0384E0080F871 /* CardScannerKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannerKitTests.swift; sourceTree = "<group>"; };
 		A800B93429F038830080F871 /* CardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannerView.swift; sourceTree = "<group>"; };
 		A800B93629F039C80080F871 /* CardOutlineOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardOutlineOverlay.swift; sourceTree = "<group>"; };
 		A800B93829F039FB0080F871 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
@@ -74,6 +63,7 @@
 		A800B9A529F0559B0080F871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A800B9A729F0559C0080F871 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A800B9AA29F0559C0080F871 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A81D4DE129F9966800524F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +71,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A800B92129F0384E0080F871 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A800B92529F0384E0080F871 /* CardScannerKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				A800B91C29F0384E0080F871 /* CardScannerKit */,
-				A800B92829F0384E0080F871 /* CardScannerKitTests */,
 				A800B9A229F0559B0080F871 /* CardScannetKitDemo */,
 				A800B91B29F0384E0080F871 /* Products */,
 				A800B9CB29F065180080F871 /* Frameworks */,
@@ -118,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				A800B91A29F0384E0080F871 /* CardScannerKit.framework */,
-				A800B92429F0384E0080F871 /* CardScannerKitTests.xctest */,
 				A800B9A129F0559B0080F871 /* CardScannetKitDemo.app */,
 			);
 			name = Products;
@@ -137,14 +117,6 @@
 				A800B93A29F03B400080F871 /* CardScannerViewRepresentable.swift */,
 			);
 			path = CardScannerKit;
-			sourceTree = "<group>";
-		};
-		A800B92829F0384E0080F871 /* CardScannerKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				A800B92929F0384E0080F871 /* CardScannerKitTests.swift */,
-			);
-			path = CardScannerKitTests;
 			sourceTree = "<group>";
 		};
 		A800B97729F051050080F871 /* DefaultViews */ = {
@@ -167,6 +139,7 @@
 		A800B9A229F0559B0080F871 /* CardScannetKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A81D4DE129F9966800524F9F /* Info.plist */,
 				A800B9A329F0559B0080F871 /* CardScannetKitDemoApp.swift */,
 				A800B9A529F0559B0080F871 /* ContentView.swift */,
 				A800B9A729F0559C0080F871 /* Assets.xcassets */,
@@ -222,24 +195,6 @@
 			productReference = A800B91A29F0384E0080F871 /* CardScannerKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A800B92329F0384E0080F871 /* CardScannerKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A800B93129F0384E0080F871 /* Build configuration list for PBXNativeTarget "CardScannerKitTests" */;
-			buildPhases = (
-				A800B92029F0384E0080F871 /* Sources */,
-				A800B92129F0384E0080F871 /* Frameworks */,
-				A800B92229F0384E0080F871 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A800B92729F0384E0080F871 /* PBXTargetDependency */,
-			);
-			name = CardScannerKitTests;
-			productName = CardScannerKitTests;
-			productReference = A800B92429F0384E0080F871 /* CardScannerKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		A800B9A029F0559B0080F871 /* CardScannetKitDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A800B9C229F0559C0080F871 /* Build configuration list for PBXNativeTarget "CardScannetKitDemo" */;
@@ -272,9 +227,6 @@
 					A800B91929F0384E0080F871 = {
 						CreatedOnToolsVersion = 14.3;
 					};
-					A800B92329F0384E0080F871 = {
-						CreatedOnToolsVersion = 14.3;
-					};
 					A800B9A029F0559B0080F871 = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -294,7 +246,6 @@
 			projectRoot = "";
 			targets = (
 				A800B91929F0384E0080F871 /* CardScannerKit */,
-				A800B92329F0384E0080F871 /* CardScannerKitTests */,
 				A800B9A029F0559B0080F871 /* CardScannetKitDemo */,
 			);
 		};
@@ -302,13 +253,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		A800B91829F0384E0080F871 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A800B92229F0384E0080F871 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -341,14 +285,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A800B92029F0384E0080F871 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A800B92A29F0384E0080F871 /* CardScannerKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A800B99D29F0559B0080F871 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,11 +297,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A800B92729F0384E0080F871 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A800B91929F0384E0080F871 /* CardScannerKit */;
-			targetProxy = A800B92629F0384E0080F871 /* PBXContainerItemProxy */;
-		};
 		A800B9CF29F065180080F871 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A800B91929F0384E0080F871 /* CardScannerKit */;
@@ -519,7 +450,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = CardScannerKit.CardScannerKit;
+				PRODUCT_BUNDLE_IDENTIFIER = Mayank.CardScannerKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -553,44 +484,10 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = CardScannerKit.CardScannerKit;
+				PRODUCT_BUNDLE_IDENTIFIER = Mayank.CardScannerKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		A800B93229F0384E0080F871 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B4WDAHJ8G8;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CardScannerKit.CardScannerKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A800B93329F0384E0080F871 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = B4WDAHJ8G8;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = CardScannerKit.CardScannerKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -607,12 +504,13 @@
 				DEVELOPMENT_TEAM = B4WDAHJ8G8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardScannetKitDemo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera to enable the apps card scanning feature.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Application Needs Permissions to write photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -638,12 +536,13 @@
 				DEVELOPMENT_TEAM = B4WDAHJ8G8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardScannetKitDemo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera to enable the apps card scanning feature.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Application Needs Permissions to write photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,15 +574,6 @@
 			buildConfigurations = (
 				A800B92F29F0384E0080F871 /* Debug */,
 				A800B93029F0384E0080F871 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A800B93129F0384E0080F871 /* Build configuration list for PBXNativeTarget "CardScannerKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A800B93229F0384E0080F871 /* Debug */,
-				A800B93329F0384E0080F871 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

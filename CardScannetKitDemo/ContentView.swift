@@ -13,15 +13,29 @@ struct ContentView: View {
     @State private var showSheet: Bool = false
     @State private var showUnhappyFlow: Bool = false
     
+    
     var body: some View {
         VStack {
             if let image = capturedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 300)
-                    .border(Color.pink)
-                    .clipped()
+                VStack {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 300)
+                        .border(Color.pink)
+                        .clipped()
+                }
+                Button(action: {
+                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                }, label: {
+                    HStack {
+                        Image(systemName: "photo.on.rectangle.angled")
+                        Text("Save")
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                })
             }
             if !showUnhappyFlow {
                 Button("Take Photo") {
@@ -49,7 +63,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showSheet) {
             // default
-            CardScannerView(capturedImage: $capturedImage)
+            CardScannerView(capturedImage: $capturedImage, autoCropImage: true)
             
             // Specify specific components yourself
 //            CardScannerView(capturedImage: $capturedImage, imageButton: {

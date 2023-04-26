@@ -8,13 +8,13 @@
 import SwiftUI
 
 public struct CardOutlineOverlay: View {
-    let widthPercentage: Double
-    let height: Double
+    var widthPercentage: Double = 0.85
+    @State var height: Double = 210
+    @State var width: Double = 0
+    @State private var orientation = UIDeviceOrientation.unknown
     
-    init(widthPercentage: Double = 0.85, height: Double = 210) {
-        self.widthPercentage = widthPercentage
-        self.height = height
-    }
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     public var body: some View {
         GeometryReader { dimension in
@@ -22,7 +22,8 @@ public struct CardOutlineOverlay: View {
                 Rectangle().foregroundColor(.black.opacity(0.05))
                 VStack(alignment: .center) {
                     Rectangle()
-                        .frame(width: dimension.size.width * 0.85, height: height, alignment: .center)
+                        .frame(width: width, height: height, alignment: .center)
+                        .fixedSize()
                         .blendMode(.destinationOut)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12).stroke(.pink, lineWidth: 10)
@@ -30,6 +31,19 @@ public struct CardOutlineOverlay: View {
                         .cornerRadius(12)
                 }.frame(maxWidth: .infinity)
                     .padding(.top)
+                    .onAppear {
+                        self.width = dimension.size.width * widthPercentage
+                    }
+//                    .onAppear {
+//                        if orientation.isLandscape {
+//                            self.width = dimension.size.height * widthPercentage
+//                        } else {
+//                            self.width = dimension.size.width * widthPercentage
+//                        }
+//                    }
+//                    .onRotate { newOrientation in
+//                        orientation = newOrientation
+//                    }
             }.compositingGroup()
         }
     }
