@@ -30,16 +30,3 @@ struct CardScannerViewRepresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
 }
 
-//struct CardScannerViewRepresentableContainer_Previews: View {
-//    @State private var frameHandler = CardFrameHandler()
-//    
-//    var body: some View {
-//        CardScannerViewRepresentable(camerService: $frameHandler)
-//    }
-//}
-//
-//struct CardScannerViewRepresentable_Previews : PreviewProvider {
-//    static var previews: some View {
-//        CardScannerViewRepresentableContainer_Previews()
-//    }
-//}

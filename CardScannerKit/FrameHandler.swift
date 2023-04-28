@@ -140,7 +140,6 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-                
         if startScan {
             try? requestHandler.perform([textDetectionRequest, documentRequest], on: ciImage)
             
@@ -185,14 +184,14 @@ extension CardFrameHandler: AVCaptureVideoDataOutputSampleBufferDelegate {
         return croppedImage
     }
     
-    func convert(cmage: CIImage) -> UIImage {
+    private func convert(cmage: CIImage) -> UIImage {
         let context = CIContext(options: nil)
         let cgImage = context.createCGImage(cmage, from: cmage.extent)!
         let image = UIImage(cgImage: cgImage)
         return image
     }
         
-    func validCompletedVisionRequest(_ textDetectionRequest: VNRequest?,_ documentRequest: VNRequest?) -> Bool {
+    private func validCompletedVisionRequest(_ textDetectionRequest: VNRequest?,_ documentRequest: VNRequest?) -> Bool {
         // Only proceed if a rectangular image was detected.
         guard let textRectangles = textDetectionRequest?.results as? [VNObservation] else {
             return false
