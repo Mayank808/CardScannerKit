@@ -43,10 +43,10 @@ struct ContentView: View {
             })
         }
         .onAppear {
+            // Access to the following function to check if user granted camera permissions.
             ImagePermissionHandler.shared.checkPermissions { granted in
                 if !granted {
                     print("Show unhappy flow")
-                    showUnhappyFlow.toggle()
                 }
             }
         }
